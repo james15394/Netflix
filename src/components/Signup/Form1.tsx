@@ -86,6 +86,7 @@ const IntroContainer = styled.section`
           padding-left: 10px;
           font-size: 1.2rem;
           transition: all 0.4s ease;
+          pointer-events: none;
         }
       }
       input {
