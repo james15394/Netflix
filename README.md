@@ -4,10 +4,10 @@
 
 ### Link: https://clever-kepler-d43843.netlify.app
 
-### Firebase
+### Firebase authentication
 
 ### Redux-toolkit
 
 ### React router dom
 
-### Motion
+### Framer - Motion
