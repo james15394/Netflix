@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Input from "../FormField/Input";
 import * as yup from "yup";
-import { useAppDispatch } from "../../app/hooks";
-import { paidStatus } from "../../features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { paidStatus, selectPackage } from "../../features/user/userSlice";
 import { history } from "../../App2";
 import { motion } from "framer-motion";
 
@@ -200,6 +200,7 @@ interface IFormValues {
 }
 const CreditOption = () => {
   const dispatch = useAppDispatch();
+  const currentPackage = useAppSelector(selectPackage);
   const Schema = yup.object().shape({
     firstName: yup.string().required("First name is required"),
     lastName: yup.string(),
@@ -314,12 +315,17 @@ const CreditOption = () => {
 
             <div className="plan">
               <div className="left">
-                <h3>180,000 ₫/month</h3>
-                <p>Basic Plan</p>
+                <h3> {currentPackage === "basic"
+                    ? "180,000đ"
+                    : currentPackage === "standard"
+                    ? "220,000đ"
+                    : "260,000đ"}{" "}
+                  /month</h3>
+                <p>{currentPackage} Plan</p>
               </div>
               <div
                 className="right"
-                onClick={() => history.push("/signup/planform")}
+                onClick={() => history.push("/seen/signup/planform")}
               >
                 Change
               </div>
