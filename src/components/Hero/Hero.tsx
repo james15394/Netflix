@@ -7,7 +7,6 @@ import { getGenre } from "../utils";
 import HomeSkeleton from "../Skeleton/HeroSkeleton";
 
 const Hero = () => {
-  console.log("hero");
   const [movie, setMovie] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [genres, setGenres] = useState<any>([]);
