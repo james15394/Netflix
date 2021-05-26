@@ -145,11 +145,14 @@ const Form1 = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<IFormValues>({
     mode: "onBlur",
     resolver: yupResolver(Schema),
     reValidateMode: "onBlur",
   });
+  const watchEmail = watch(["email"])[0];
+  const watchPassword = watch(["password"])[0];
   const onSubmit = (data: IFormValues) => {
     const { email, password } = data;
     auth
@@ -190,6 +193,7 @@ const Form1 = () => {
             errors={errors.email}
             ivalue={user}
             type="text"
+            field={watchEmail}
           />
           <div className="error">{errors.email?.message}</div>
           <Input
@@ -199,6 +203,7 @@ const Form1 = () => {
             errors={errors.password}
             name="password"
             type="password"
+            field={watchPassword}
           />
           <div className="error">{errors.password?.message}</div>
           <button className="btn" type="submit">
