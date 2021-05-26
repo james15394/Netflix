@@ -55,7 +55,7 @@ export const HeroSection = styled.div`
       margin-bottom: 20px;
     }
     h5 {
-      font-size: 2rem;
+      font-size: clamp(1rem, 3vw - 0.5rem, 3rem);;
       text-align: center;
       width: 70%;
       margin-bottom: 20px;
