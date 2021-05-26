@@ -51,11 +51,14 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<IFormValues>({
     mode: "all",
     resolver: yupResolver(Schema),
     reValidateMode: "onBlur",
   });
+  const watchEmail = watch(["emailOrPhoneNumber"])[0];
+  const watchPassword = watch(["password"])[0];
   const onSubmit = (data: IFormValues) => {
     const { emailOrPhoneNumber, password } = data;
     auth
@@ -97,6 +100,7 @@ const Login = () => {
               required
               errors={errors.emailOrPhoneNumber}
               type="text"
+              field={watchEmail}
             />
             <div className="error">{errors.emailOrPhoneNumber?.message}</div>
             <Input
@@ -106,6 +110,7 @@ const Login = () => {
               errors={errors.password}
               name="password"
               type="password"
+              field={watchPassword}
             />
             <div className="error">{errors.password?.message}</div>
             <button type="submit">Sign in</button>
