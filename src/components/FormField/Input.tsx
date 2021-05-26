@@ -8,6 +8,7 @@ type InputProps = {
   name: string;
   type: string;
   ivalue?: string | null | undefined;
+  field?: string;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -18,6 +19,7 @@ const Input: React.FC<InputProps> = ({
   name,
   type,
   ivalue,
+  field,
 }) => {
   const [value, setValue] = useState<string | null | undefined>(ivalue);
   const handleChange = (e: any) => {
@@ -30,10 +32,10 @@ const Input: React.FC<InputProps> = ({
         className={`${errors?.message ? "is-invalid" : ""}`}
         name={name}
         type={type}
-        value={value}
-        onChange={handleChange}
+         placeholder={value}
+        defaultValue={ivalue}
       />
-      <label className={`${value?.length ? "is-valid" : ""}`}>{label}</label>
+      <label className={`${field?.length || ivalue?.length ? "is-valid" : ""}`}>{label}</label>
     </div>
   );
 };
