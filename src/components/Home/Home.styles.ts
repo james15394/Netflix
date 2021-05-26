@@ -48,14 +48,14 @@ export const HeroSection = styled.div`
     color: #fff;
     width: 70%;
     h3 {
-      font-size: 4rem;
+      font-size: clamp(2rem, 0.8511rem + 5.1064vw, 5rem);
       letter-spacing: 2px;
       text-align: center;
       width: 70%;
       margin-bottom: 20px;
     }
     h5 {
-      font-size: clamp(1rem, 3vw - 0.5rem, 3rem);;
+      font-size: clamp(1rem, 0.617rem + 1.7021vw, 2rem);
       text-align: center;
       width: 70%;
       margin-bottom: 20px;
@@ -64,7 +64,7 @@ export const HeroSection = styled.div`
       text-align: center;
       width: 70%;
       margin-bottom: 20px;
-      font-size: 1.2rem;
+      font-size: clamp(0.8rem, 2vw - 0.2rem, 2rem);
     }
     form {
       display: flex;
