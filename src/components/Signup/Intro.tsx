@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
@@ -45,16 +45,24 @@ const IntroContainer = styled.section`
       place-items: center;
       font-size: 17px;
       cursor: pointer;
+      outline-width: 0;
     }
   }
 `;
 const Intro = () => {
   const history = useHistory();
+  const keyRef = useRef<HTMLButtonElement>(null);
   const variants = {
     visible: { x: 0, opacity: 1, transition: { duration: 0.3 } },
     hidden: { x: "100%", opacity: 0 },
     exit: { x: "-100%", opacity: 0, transition: { duration: 0.3 } },
   };
+    const handleKeyPress = (e: any) => {
+    e.key === "Enter" && history.push("/seen/signup/regform");
+  };
+  useEffect(() => {
+    keyRef.current?.focus();
+  }, []);
   return (
     <IntroContainer>
       <motion.div
@@ -76,12 +84,14 @@ const Intro = () => {
           Netflix is personalized for you. Create a password to watch Netflix on
           any device at any time.
         </div>
-        <div
+        <button
           className="btn"
+          onKeyPress={handleKeyPress}
+          ref={keyRef}
           onClick={() => history.push("/seen/signup/regform")}
         >
           Continue
-        </div>
+        </button>
       </motion.div>
     </IntroContainer>
   );
