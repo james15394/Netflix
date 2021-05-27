@@ -8,42 +8,21 @@ import { API_KEY } from "../../api/Request";
 import debounce from "lodash.debounce";
 import { auth } from "../../firebase";
 import { history } from "../../App2";
+import { useForm } from "react-hook-form";
+
+type FormValues = {
+  search: string;
+};
 
 const Header = (props: { setSearchResult: any }) => {
   const [openSearch, setOpenSearch] = useState(false);
   const { setSearchResult } = props;
   const [navScroll, setNavScroll] = useState(false);
-  const [query, setQuery] = useState<string>("");
-  const [value, setValue] = useState<string>("");
+
   const changeNav = () => {
     window.scrollY > 0 ? setNavScroll(true) : setNavScroll(false);
   };
-  function useDebounce(callback: any, delay: number) {
-    const debouncedFn = useCallback(
-      debounce((...args) => callback(...args), delay),
-      [delay]
-    );
-    return debouncedFn;
-  }
-  const debouncedSave = useDebounce(
-    (nextValue: string) => setQuery(nextValue),
-    1000
-  );
-  const handleChange = (event: any) => {
-    const nextValue = event.target.value;
-    setValue(nextValue);
-    debouncedSave(nextValue);
-  };
-  const searchQuery = async (e: any) => {
-    e.preventDefault();
-    const result = await axios.get(
-      `/search/multi?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
-    );
-    setSearchResult(result.data.results);
-    setQuery("");
-    setValue("");
-    history.push("/search");
-  };
+  
   const handleLogOut = () => {
     auth.signOut();
     history.push("/seen");
@@ -54,25 +33,35 @@ const Header = (props: { setSearchResult: any }) => {
       window.removeEventListener("scroll", changeNav);
     };
   }, []);
+    const { register, handleSubmit, setFocus, setValue } = useForm<FormValues>();
+  const onSubmit = async (data: FormValues) => {
+    const key = data.search;
+    const result = await axios.get(
+      `/search/multi?api_key=${API_KEY}&language=en-US&query=${key}&page=1&include_adult=false`
+    );
+    setSearchResult(result.data.results);
+    history.push("/search");
+
+    setValue("search", "");
+  };
+  useEffect(() => {
+    openSearch === true && setFocus("search");
+  }, [openSearch]);
   return (
     <HeaderWrapper navScroll={navScroll} openSearch={openSearch}>
       <HeaderContainer>
         <HeaderLeft navScroll={navScroll} openSearch={openSearch}>
           <div className="item search">
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <i
                 className="fas fa-search"
                 onClick={() => setOpenSearch((prev) => !prev)}
               ></i>
               <input
-                type="text"
-                onChange={handleChange}
-                value={value}
-                placeholder="Enter movies, tv shows... "
+                {...register("search")}
+                placeholder="Enter movies, tv shows..."
               />
-              <button onClick={searchQuery} type="submit">
-                Search
-              </button>
+              <button type="submit" />
             </form>
           </div>
           <div className="item" onClick={() => history.push("/")}>
