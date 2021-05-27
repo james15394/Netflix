@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 
@@ -55,11 +55,19 @@ const Container = styled.section`
       place-items: center;
       font-size: 17px;
       cursor: pointer;
+       outline-width: 0;
     }
   }
 `;
 const Home = () => {
   const history = useHistory();
+    const ref = useRef<HTMLButtonElement>(null);
+ const handlePress = (e: any) => {
+    e.key === "Enter" && history.push("/seen/signup/planform");
+  };
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
   const variants = {
     visible: { x: 0, opacity: 1, transition: { duration: 0.3 } },
     hidden: { x: "100%", opacity: 0 },
@@ -90,12 +98,14 @@ const Home = () => {
           <div className="item">Unlimited viewing on all your devices.</div>
         </div>
 
-        <div
+        <button
           className="btn"
+           ref={ref}
+          onKeyPress={handlePress}
           onClick={() => history.push("/seen/signup/planform")}
         >
           See the Plans
-        </div>
+        </button>
       </motion.div>
     </Container>
   );
