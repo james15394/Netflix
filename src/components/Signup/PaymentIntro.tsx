@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 
@@ -62,6 +62,7 @@ const Container = styled.section`
       padding: 10px;
       border: 1px solid rgb(160 146 146 / 40%);
       border-radius: 3px;
+            outline-width: 0;
       .method {
         flex: 1;
         display: flex;
@@ -93,6 +94,15 @@ const Container = styled.section`
   }
 `;
 const Intro = () => {
+    const ref = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+  const handleKeyPress = (e: any) => {
+    if (e.key === "Enter") {
+      history.push("/seen/signup/creditoption");
+    }
+  };
   const history = useHistory();
   const variants = {
     visible: { x: 0, opacity: 1, transition: { duration: 0.3 } },
@@ -122,9 +132,11 @@ const Intro = () => {
           Your membership starts as soon as you set up payment.
           <span>No commitments.</span> <span>Cancel online anytime.</span>
         </div>
-        <div
+        <button
           className="btn"
           onClick={() => history.push("/seen/signup/creditoption")}
+          ref={ref}
+          onKeyPress={handleKeyPress}
         >
           <div className="method">
             <h4>Credit or Debit card</h4>
@@ -152,7 +164,7 @@ const Intro = () => {
           <div className="arrow">
             <i className="fas fa-chevron-right"></i>
           </div>
-        </div>
+        </button>
       </motion.div>
     </Container>
   );
