@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import styled from "styled-components";
@@ -8,6 +8,9 @@ import { getPackage } from "../../features/user/userSlice";
 
 interface Prop {
   label: string;
+}
+interface IFormValues {
+  allplan: string;
 }
 const Container = styled.section<Prop>`
   display: grid;
@@ -163,6 +166,7 @@ const Container = styled.section<Prop>`
       place-items: center;
       margin-top: 20px;
       cursor: pointer;
+      outline-width: 0;
     }
   }
 `;
@@ -174,22 +178,23 @@ const PlanForm = () => {
     exit: { x: "-100%", opacity: 0, transition: { duration: 0.3 } },
   };
   const dispatch = useAppDispatch();
-  const [labelType, setLabelType] = useState<string>("standard");
-  const handleChange = (e: any) => {
-    const type = e.target.id.toString();
-    setLabelType(type);
-  };
+
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data: any) => {
+  } = useForm<IFormValues>({ defaultValues: { allplan: "standard" } });
+  const watchPlan = watch("allplan");
+  const onSubmit = (data: IFormValues) => {
     dispatch(getPackage(data.allplan));
     history.push("/seen/signup/payment");
   };
+    useEffect(() => {
+    radioRef.current?.focus();
+  }, [watchPlan]);
   return (
-    <Container label={labelType}>
+    <Container label={watchPlan}>
       <motion.div
         className="wrapper"
         initial="hidden"
@@ -209,7 +214,7 @@ const PlanForm = () => {
 
         <div className="plan__table">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <table onChange={handleChange}>
+            <table >
               <tbody>
                 <tr>
                   <th colSpan={3}></th>
@@ -231,7 +236,7 @@ const PlanForm = () => {
                         id="standard"
                         value="standard"
                         {...register("allplan")}
-                        defaultChecked
+                        
                       />
                       <label htmlFor="standard">Standard</label>
                     </div>
@@ -321,7 +326,7 @@ const PlanForm = () => {
                 and 1 with Basic.
               </small>
             </div>
-            <button type="submit" className="btn">
+            <button type="submit" className="btn" ref={radioRef}>
               Continue
             </button>
           </form>
