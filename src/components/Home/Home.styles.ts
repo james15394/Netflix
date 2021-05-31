@@ -3,10 +3,10 @@ import styled from "styled-components";
 export const HomeContainer = styled.section`
   background: rgba(0, 0, 0, 0.4);
   background: linear-gradient(to top,rgba(0,0,0,.8) 0,rgba(0,0,0,0) 60%,rgba(0,0,0,.8) 100%), url("https://assets.nflxext.com/ffe/siteui/vlv3/71cfa010-f8dd-4298-a94d-1ae5034a857c/bb3f65e5-fca2-41b0-80b7-d28f1d429edd/VN-en-20210425-popsignuptwoweeks-perspective_alpha_website_medium.jpg");
-  );
   background-position: center;
   background-size: cover;
   background-repeat:no-repeat;
+    height: 100vh;
 `;
 export const HeroSection = styled.div`
   height: 100vh;
@@ -14,16 +14,34 @@ export const HeroSection = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+    height: 100%;
+  overflow: hidden;
+  padding: 30px 50px;
+  @media (max-width: 700px) {
+    padding: 0 20px;
+  }
+  @media (max-width: 530px) {
+    padding: 0;
+  }
   .header {
     width: 100%;
     display: flex;
-    padding: 20px 50px;
+        height: 10vh;
+    @media (max-width: 550px) {
+      padding: 20px;
+    }
     align-items: center;
     justify-content: space-between;
     .logo {
       img {
         max-width: 180px;
         object-fit: contain;
+                @media (max-width: 650px) {
+          max-width: 150px;
+        }
+        @media (max-width: 450px) {
+          max-width: 110px;
+        }
       }
     }
     .signIn {
@@ -46,33 +64,41 @@ export const HeroSection = styled.div`
     justify-content: center;
     align-items: center;
     color: #fff;
-    width: 70%;
+    width: 60%;
+        @media (max-width: 870px) {
+      width: 90%;
+    }
+
+    height: 80vh;
+    overflow: hidden;
     h3 {
       font-size: clamp(2rem, 0.8511rem + 5.1064vw, 5rem);
       letter-spacing: 2px;
       text-align: center;
-      width: 70%;
+      width: 100%;
       margin-bottom: 20px;
     }
     h5 {
       font-size: clamp(1rem, 0.617rem + 1.7021vw, 2rem);
       text-align: center;
-      width: 70%;
+      width: 100%;
       margin-bottom: 20px;
     }
     p {
       text-align: center;
-      width: 70%;
+      width: 100%;
       margin-bottom: 20px;
       font-size: clamp(0.8rem, 2vw - 0.2rem, 2rem);
     }
     form {
       display: flex;
       justify-content: center;
-
+      width: 100%;
       .inputWrap {
+      width: 100%;
         .input {
           position: relative;
+          width: 100%;
         }
         display: flex;
         flex-direction: column;
@@ -97,7 +123,7 @@ export const HeroSection = styled.div`
         transition: all 0.4s ease;
       }
       input {
-        min-width: 450px;
+        width: 100%;
         height: 60px !important;
         padding-left: 20px;
         font-size: 1rem;
@@ -126,6 +152,9 @@ export const HeroSection = styled.div`
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        @media (max-width: 570px) {
+          display: none;
+        }
         i {
           margin-left: 10px;
         }
