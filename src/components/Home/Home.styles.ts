@@ -72,14 +72,14 @@ export const HeroSection = styled.div`
     height: 80vh;
     overflow: hidden;
     h3 {
-      font-size: clamp(2rem, 0.8511rem + 5.1064vw, 5rem);
+      font-size: clamp(1.5rem, 0.7727rem + 3.2323vw, 3.5rem);
       letter-spacing: 2px;
       text-align: center;
-      width: 100%;
+      width: 80%;
       margin-bottom: 20px;
     }
     h5 {
-      font-size: clamp(1rem, 0.617rem + 1.7021vw, 2rem);
+      font-size: clamp(1rem, 0.6364rem + 1.6162vw, 2rem);
       text-align: center;
       width: 100%;
       margin-bottom: 20px;
@@ -88,7 +88,7 @@ export const HeroSection = styled.div`
       text-align: center;
       width: 100%;
       margin-bottom: 20px;
-      font-size: clamp(0.8rem, 2vw - 0.2rem, 2rem);
+      font-size: clamp(0.5rem, 0.2091rem + 1.2929vw, 1.3rem);
     }
     form {
       display: flex;
